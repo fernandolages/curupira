@@ -1,0 +1,38 @@
+<!-- Prepares Agent JAR before test execution -->
+<plugin>
+    <groupid>org.apache.maven.plugins</groupid>
+    <artifactid>maven-jar-plugin</artifactid>
+    <version>2.4</version>
+    <executions>
+        <execution>
+            <phase>process-classes</phase>
+            <goals>
+                <goal>jar</goal>
+            </goals>
+            <configuration>
+                <archive>
+                    <manifestentries>
+                        <premain-class>br.ufmg.dcc.cuda.agent.Agent</premain-class>
+                    </manifestentries>
+                </archive>
+            </configuration>
+        </execution>
+    </executions>
+</plugin>
+ 
+<!-- executes test with -javaagent option -->
+<plugin>
+    <groupid>org.apache.maven.plugins</groupid>
+    <artifactid>maven-surefire-plugin</artifactid>
+    <version>2.14</version>
+    <configuration>
+        <argline>-javaagent:target/${project.build.finalName}.jar</argline>
+    </configuration>
+</plugin>
+
+<dependency>
+    <groupid>org.javassist</groupid>
+    <artifactid>javassist</artifactid>
+    <version>3.14.0-GA</version>
+    <type>jar</type>
+</dependency>

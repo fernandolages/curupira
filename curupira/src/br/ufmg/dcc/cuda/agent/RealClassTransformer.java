@@ -15,11 +15,11 @@ public class RealClassTransformer implements ClassFileTransformer {
 	 
 	        byte[] byteCode = classfileBuffer;
 	 
-	        if (className.equals("org/javabenchmark/instrumentation/Sleeping")) {
+	        if (className.equals("br/ufmg/dcc/cuda/agent/Sleeping")) {
 	 
 	            try {
 	                ClassPool cp = ClassPool.getDefault();
-	                CtClass cc = cp.get("org.javabenchmark.instrumentation.Sleeping");
+	                CtClass cc = cp.get("br.ufmg.dcc.cuda.agent.Sleeping");
 	                CtMethod m = cc.getDeclaredMethod("randomSleep");
 	                m.addLocalVariable("elapsedTime", CtClass.longType);
 	                m.insertBefore("elapsedTime = System.currentTimeMillis();");
